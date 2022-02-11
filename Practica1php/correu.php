@@ -65,7 +65,7 @@
         <p style='font-size:15px;'>Hola senyor ".$infousuariU."</p>
         <hr />
         <img src='./img/cinetics.jpg' alt='Img' title='Img' style='height:auto; width:100%; max-width:100%;' />
-        <a href='http://localhost/Practica1php/fgpass.php?code='".$acode."' style='font-size:15px;'>Canviar contrasenya!</a>
+        <a href='http://localhost/Practica1php/fgpass.php?code=".$acode."&mail=".$infousuariC."' style='font-size:15px;'>Canviar contrasenya!</a>
         </td>
         </tr>
         </tbody>";

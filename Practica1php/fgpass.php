@@ -4,8 +4,8 @@ $error1=false;
 $error2=false;
     if($_SERVER["REQUEST_METHOD"] == 'POST')
     {
-        $codi=$_GET["code"];
-        $mail=$_GET["mail"];
+        $codi=$_POST["code"];
+        $mail=$_POST["mail"];
 
         $pass=$_POST["txtPassword"];
         $pass1=$_POST["txtPassword1"];  
@@ -21,17 +21,17 @@ $error2=false;
             $cn->execute(array(':nom' => $mail)); 
             $error=true;  
             foreach ($cn as $fila) {
-                $passwrd=$fila['passhash'];
+                $passwrd=$fila['passHash'];
                 if(password_verify($passwrd,$pass))
-                
                     $error1=true; 
                 else   
                 
                     if($pass == $pass1)
                     {
                         $passh=password_hash($pass,PASSWORD_DEFAULT);
-                        $sql = "UPDATE `user` SET passhash =$passh WHERE mail = '$mail'";
-                        $update = $db->query($sql);
+                        $sql = "UPDATE `user` SET passhash ='$passh' WHERE mail = '$mail'";
+                        $update = $db->query($sql); 
+                        header("Location: ./login.php");
                     }
                     else $error2=true;
             }
@@ -67,11 +67,13 @@ $error2=false;
                             ?>        
                             <label for="password" class="text-info">Escriu la nova contraseña:</label>
                             <div class="input-group">
-                                <input ID="txtPassword" type="Password" Class="form-control">
+                                <input ID="txtPassword" name="txtPassword" type="Password" Class="form-control">
                             </div>
                             <label for="password" class="text-info">Torna a escriure la nova contraseña:</label>
                             <div class="input-group">
-                                <input ID="txtPassword1" type="Password" Class="form-control">
+                                <input ID="txtPassword1" name="txtPassword1" type="Password" Class="form-control">
+                                <input ID="code" name="code" type="hidden" Class="form-control"value="<?php echo $_GET["code"]; ?>">
+                                <input ID="mail" name="mail" type="hidden" Class="form-control"value="<?php echo $_GET["mail"]; ?>">
                             </div>
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="CONFIRMAR CONTRASENYA">
                             <a href="./login.php" class="tornar"><b>You have an account? LOGIN</b></a>
